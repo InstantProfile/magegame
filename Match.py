@@ -3,12 +3,6 @@ import Handler
 import UI
 
 
-class BattleSetting:
-    pass
-
-class BattleMethod:
-    pass
-
 class BotAIController:
     @staticmethod
     def get_bot_choice(scenario):
