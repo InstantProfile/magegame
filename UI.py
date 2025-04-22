@@ -1,7 +1,7 @@
 class MainUI:
     @staticmethod
     def view_main_menu():
-        """Вывод главного меню."""
+        """Вывод главного меню ."""
         return (
             "1 - Добавить в ручную игрока.\n"
             "2 - Добавить рандомно игрока.\n"
@@ -39,6 +39,7 @@ class EntityUI:
 
 class BattleUI:
     @staticmethod
+    # Шаблон сообщения об атаке
     def view_attacks(*args):
         return "{} нанес {} урона {}".format(*args)
 

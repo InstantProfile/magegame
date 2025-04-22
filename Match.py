@@ -4,15 +4,21 @@ import UI
 
 
 class BotAIController:
+    """Управление действиями бота в бою."""
     @staticmethod
     def get_bot_choice(scenario):
-        """Возвращает выбор бота для разных ситуаций
-        """
+        """Случайный выбор действия бота из доступных сценариев."""
+        # Пример: scenario="game_menu_choice" → выбор из [1, 2, 3]
         options: dict = Handler.ChoiceHandler.SCENARIOS
         return random.choice(options.get(scenario))
 
     @staticmethod
     def handle_bot(bot, enemy, mage_list):
+        """Логика действий бота в зависимости от состояния."""
+        # Выбор сценария:
+        # - Если здоровье <50 и броня неактивна → полное меню
+        # - Если здоровье <50 и броня активна → нельзя использовать защиту
+        # - Если здоровье ≥50 → нельзя лечиться
         if bot.magician_health < 50 and bot.step_mage == 0:
             choices = BotAIController.get_bot_choice(scenario="game_menu_choice")
         elif bot.magician_health < 50 and bot.step_mage > 0:
@@ -93,7 +99,7 @@ class StartFight:
     def condition_start_game(target):
         """ Обновление здоровья для новой игры с другим игроком"""
         if target.magician_health < 100:
-            target.magician_health = 100
+            target.magician_health = target.get_base_hp()
 
     def fight(self):
         user, bot = self.game_state[:2]

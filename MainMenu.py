@@ -5,10 +5,16 @@ import Handler
 
 
 class CreateMenu:
+    """Главное меню игры."""
+
     def __init__(self, game_state):
         self.game_state = game_state
 
+    def return_mage_list(self):
+        return self.game_state
+
     def create_custom_mage(self):
+        """Создание персонажа с ручным вводом характеристик."""
         name = input(UI.MainUI.input_name())
         mage = Entity.Person(name, 0, 5).set_action_person()
         self.game_state.append(mage)
@@ -20,9 +26,9 @@ class CreateMenu:
         print(UI.MainUI.append_list_mage(mage.name_mage()))
 
     @staticmethod
-    def lists_mage_view(arr):
-        for mage in arr:
-            print(mage)
+    def show_mage_list(arr):
+        for mane in arr:
+            print(mane)
 
     def start_match(self):
         if len(self.game_state) >= 2:
@@ -35,7 +41,7 @@ class CreateMenu:
         menu_actions = {
             1: self.create_custom_mage,
             2: self.create_random_mage,
-            3: self.lists_mage_view,
+            3: self.show_mage_list,
             4: self.start_match,
             5: UI.MainUI.quit_game
         }

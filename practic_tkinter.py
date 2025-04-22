@@ -1,93 +1,90 @@
 import tkinter as tk
 
-# Создание главного окна
-root = tk.Tk()
-root.title("Мое первое приложение")
-root.geometry("300x200")  # размер окна
-
-# Запуск главного цикла
-root.mainloop()
-
-
-def button_click():
-    label.config(text="Кнопка нажата!")
-
+from project.magegame import MainMenu
 
 root = tk.Tk()
-root.title("Пример с кнопкой")
+initialize_game = MainMenu.Game()
+create_menu = MainMenu.CreateMenu(initialize_game.mage_list)
+
+root.title("Game Battle")
+root.geometry("1280x860")
 
 # Метка
-label = tk.Label(root, text="Привет, Tkinter!")
-label.pack(pady=10)
-
+# description = tk.Label(root,
+#                        text="Добро Пожаловать",
+#                        font=("Arial", 16, "bold"),
+#                        pady=80,
+#                        height=5,
+#                        anchor="s",
+#                        )
+# description.pack()
+# button = tk.Button(
+#     root,
+#     text="Start Settings Game",
+#     command=lambda: print("Кнопка нажата"),
+#     bg="lightblue",
+#     fg="black"
+# )
+# button.pack(pady=10)
 # Кнопка
-button = tk.Button(root, text="Нажми меня", command=button_click)
-button.pack(pady=10)
+# button = tk.Button(root, text="Нажми меня", command=lambda: print("Кнопка нажата"))
+# button.pack(pady=10)
+# def show_screen1():
+#     # Удалить все текущие виджеты
+#     for widget in root.winfo_children():
+#         widget.destroy()
+#     # Создать виджеты для экрана 1
+#     description = tk.Label(root,
+#                            text="Добро Пожаловать",
+#                            font=("Arial", 16, "bold"),
+#                            pady=80,
+#                            height=5,
+#                            anchor="s",
+#                            )
+#     description.pack()
+#     tk.Button(root, text="Старт игры", command=show_screen2).pack()
+#
+# def show_screen2():
+#     for widget in root.winfo_children():
+#         widget.destroy()
+#     # Создать виджеты для экрана 2
+#     tk.Label(root, text="Экран 2").pack()
+#     tk.Button(root, text="Назад", command=show_screen1).pack()
+# Создание фреймов
+frame1 = tk.Frame(root)
+frame2 = tk.Frame(root)
 
-root.mainloop()
+# Виджеты для frame1
+description_go_to_main_menu = tk.Label(frame1,
+                                       text="Добро Пожаловать",
+                                       font=("Arial", 16, "bold"),
+                                       pady=80,
+                                       height=5,
+                                       anchor="s",
+                                       )
+description_go_to_main_menu.pack()
+button_go_to_main_menu = (tk.Button(frame1,
+                                   text="В главное меню",
+                                   font=("Arial", 20, "bold"),
+                                   command=lambda: show_frame(frame2)
+                                   ))
+button_go_to_main_menu.pack()
+# tk.Button(frame1, text="В экран 2", command=lambda: show_frame(frame2)).pack()
 
+# Виджеты для frame2
+tk.Label(frame2, text="Экран 2").pack()
+tk.Button(frame2, text="Назад", command=lambda: show_frame(frame1)).pack()
 
-def show_text():
-    input_text = entry.get()
-    label_result.config(text=f"Вы ввели: {input_text}")
+current_frame = None
 
+def show_frame(frame):
+    global current_frame
+    if current_frame:
+        current_frame.pack_forget()  # Скрыть текущий фрейм
+    frame.pack(fill="both", expand=True)  # Показать новый
+    current_frame = frame
 
-root = tk.Tk()
-root.title("Форма ввода")
-
-# Поле ввода
-entry = tk.Entry(root, width=30)
-entry.pack(pady=10)
-
-# Кнопка для подтверждения
-btn_submit = tk.Button(root, text="Показать текст", command=show_text)
-btn_submit.pack(pady=5)
-
-# Метка для результата
-label_result = tk.Label(root, text="")
-label_result.pack(pady=10)
-
-root.mainloop()
-
-root = tk.Tk()
-root.title("Grid Layout")
-
-# Создание виджетов
-label1 = tk.Label(root, text="Логин:")
-label2 = tk.Label(root, text="Пароль:")
-entry1 = tk.Entry(root)
-entry2 = tk.Entry(root, show="*")
-btn = tk.Button(root, text="Войти")
-
-# Размещение с помощью grid
-label1.grid(row=0, column=0, padx=5, pady=5, sticky="e")
-label2.grid(row=1, column=0, padx=5, pady=5, sticky="e")
-entry1.grid(row=0, column=1, padx=5, pady=5)
-entry2.grid(row=1, column=1, padx=5, pady=5)
-btn.grid(row=2, columnspan=2, pady=10)
-
-root.mainloop()
-
-
-import tkinter as tk
-
-def update():
-    selection = f"Выбрано: {var.get()}"
-    label.config(text=selection)
-
-root = tk.Tk()
-var = tk.StringVar()
-
-# Радиокнопки
-tk.Radiobutton(root, text="Вариант 1", variable=var, value="A", command=update).pack()
-tk.Radiobutton(root, text="Вариант 2", variable=var, value="B", command=update).pack()
-
-# Checkbutton
-check_var = tk.BooleanVar()
-check = tk.Checkbutton(root, text="Согласен", variable=check_var)
-check.pack(pady=10)
-
-label = tk.Label(root, text="")
-label.pack()
-
+# Запустить первый экран
+show_frame(frame1)
+# show_screen1()
 root.mainloop()

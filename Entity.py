@@ -4,24 +4,31 @@ import Handler
 
 
 class Person:
+    # Базовые статы персонажа
     __BASE_HP = 100
     __BASE_DAMAGE = 12
     __BASE_ARMOR = 0.1
-    _ARMOR = 1
-    __CONSTANT_DAMAGE = 2
-    __CONSTANT_ARMOR = 0.1
-    __HEALTH = 7.5
-    __MAX_ARMOR = 0.9
-    __MIN_ARMOR = 0.1
-    __INTERLOCK_STEP_COUNT = 4
+    __CONSTANT_DAMAGE = 2  # +2 урона за очко
+    __CONSTANT_ARMOR = 0.1  # +0.1 брони за очко
+    __HEALTH = 7.5  # Восстановление здоровья за лечение
+    __MAX_ARMOR = 0.9  # Максимальная броня
+    __MIN_ARMOR = 0.1  # Минимальная броня
+    __INTERLOCK_STEP_COUNT = 4  # Длительность блокировки умения
 
     def __init__(self, name: str, step: int, point: int):
+        """
+        Инициализация:
+        - name: Имя
+        - step: Счетчик блокировки умений
+        - point: Очки для распределения характеристик
+        """
+        # Инициализация персонажа: имя, здоровье, урон, броня, счетчик шагов, очки улучшений
         self.__name = name
         self.__health = self.__BASE_HP
         self.__damage = self.__BASE_DAMAGE
         self.__armor = self.__BASE_ARMOR
-        self._step = step
-        self._point = point
+        self._step = step  # Счетчик блокировки умений
+        self._point = point  # Очки для распределения
 
     def __str__(self):
         return (f"name: {self.__name}, "
